@@ -4,19 +4,22 @@ import (
     "gorm.io/driver/sqlserver"
     "gorm.io/gorm"
     "log"
+    "CHECKLIST_API/Configs"
 )
 
 var Database *gorm.DB
 
 func ConnectDatabase() {
-	//sqlserver://<user>:<password>@<host>:<port>?database=<db_name>
-    DataSourceName := "sqlserver://checklist_user:checklist1234@localhost:1433?database=CHECK_LIST"
-
-    database, err := gorm.Open(sqlserver.Open(DataSourceName), &gorm.Config{})
+    dataSourceName, err := config.GetDataSourceName()
     if err != nil {
-        log.Fatal("❌ Failed to connect to database:", err)
+        log.Fatalf("error message: %v", err)
+    }
+
+    database, err := gorm.Open(sqlserver.Open(dataSourceName), &gorm.Config{})
+    if err != nil {
+        log.Fatalf("error_message: failed to connect database: %v", err)
     }
 
     Database = database
-    log.Println("✅ Connected to SQL Server database")
+    log.Println("✅ connected to sql server database")
 }

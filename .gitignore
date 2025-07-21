@@ -1,2 +1,5 @@
+# ไฟล์ environment
+.env
+
 # Ignore the checklist file
 /CHECK LIST API \[GOLANG\].txt
